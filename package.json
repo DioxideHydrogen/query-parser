@@ -1,6 +1,6 @@
 {
   "name": "queryparserjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A js lib for easy and fast access to query params of your web application",
   "main": "index.js",
   "scripts": {
@@ -8,18 +8,16 @@
   },
   "author": "Hugo Henrique",
   "repository": {
-	"type": "git",
-	"url": "git+https://github.com/DioxideHydrogen/query-parser"
+    "type": "git",
+    "url": "git+https://github.com/DioxideHydrogen/query-parser"
   },
   "license": "ISC",
   "devDependencies": {
     "gulp": "^5.0.0",
     "gulp-uglify": "^3.0.2",
     "webpack": "^5.94.0",
-    "webpack-stream": "^7.0.0"
-  },
-  "dependencies": {
-    "@babel/core": "^7.25.2",
+    "webpack-stream": "^7.0.0",
+	"@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "babel-loader": "^9.1.3",
     "gulp-webpack": "^1.5.0"
