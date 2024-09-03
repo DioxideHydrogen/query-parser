@@ -73,6 +73,7 @@ var qsParser = /*#__PURE__*/function () {
     _defineProperty(this, "_removeInterrogation", function (query_string) {
       if (query_string.charAt(0) === '?') return query_string.slice(1);
       if (query_string.indexOf('?') > 0) return query_string.split('?')[1];
+      return query_string;
     });
     /**
      * Converte a query string em um objeto
@@ -128,7 +129,7 @@ var qsParser = /*#__PURE__*/function () {
      */
     _defineProperty(this, "add", function (param, value) {
       this._query_params[param] = value;
-      return this._query_string + '&' + param + '=' + value;
+      return this.toString();
     });
     this.version = '1.0.0';
     if (typeof window !== 'undefined') {
@@ -153,6 +154,56 @@ var qsParser = /*#__PURE__*/function () {
     function all() {
       return this._query_params;
     }
+
+    /**
+     * Retorna a query string em uma string formatada como JSON
+     * 
+     * @returns string
+     * @example
+     * let parser = new qsParser('?param1=valor1&param2=valor2');
+     * console.log(parser.json()); // '{"param1":"valor1","param2":"valor2"}'
+     */
+  }, {
+    key: "json",
+    value: function json() {
+      return JSON.stringify(this._query_params);
+    }
+  }, {
+    key: "applyToLocation",
+    value: function applyToLocation() {
+      if (typeof window !== 'undefined') {
+        window.location.search = this.toString();
+      } else {
+        throw new QueryParserError('This method only works in browser environment');
+      }
+    }
+
+    /**
+     * Retorna a query string em string
+     * @returns string
+     * @example
+     * let parser = new qsParser('?param1=valor1&param2=valor2');
+     * console.log(parser.toString()); // 'param1=valor1&param2=valor2'
+     */
+  }, {
+    key: "toString",
+    value: function toString() {
+      var _this = this;
+      var query_string = '?';
+      var _loop = function _loop(key) {
+        if (Array.isArray(_this._query_params[key])) {
+          _this._query_params[key].forEach(function (value, index) {
+            query_string += key + '[' + index + ']=' + value + '&';
+          });
+          return 1; // continue
+        }
+        query_string += key + '=' + _this._query_params[key] + '&';
+      };
+      for (var key in this._query_params) {
+        if (_loop(key)) continue;
+      }
+      return query_string.slice(0, -1);
+    }
   }]);
 }();
 if (typeof window !== 'undefined') window.qsParser = qsParser;
@@ -168,7 +219,7 @@ console.log('qsParser is loaded at version v' + version + '. Enjoy!');
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"name":"queryparserjs","version":"1.0.0","description":"A js lib for easy and fast access to query params of your web application","main":"index.js","scripts":{"test":"echo \\"Error: no test specified\\" && exit 1"},"author":"Hugo Henrique","license":"ISC","devDependencies":{"gulp":"^5.0.0","gulp-uglify":"^3.0.2","webpack":"^5.94.0","webpack-stream":"^7.0.0"},"dependencies":{"@babel/core":"^7.25.2","@babel/preset-env":"^7.25.4","babel-loader":"^9.1.3","gulp-webpack":"^1.5.0"}}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"queryparserjs","version":"1.0.2","description":"A js lib for easy and fast access to query params of your web application","main":"index.js","scripts":{"build":"gulp build"},"author":"Hugo Henrique","repository":{"type":"git","url":"git+https://github.com/DioxideHydrogen/query-parser"},"license":"ISC","devDependencies":{"gulp":"^5.0.0","gulp-uglify":"^3.0.2","webpack":"^5.94.0","webpack-stream":"^7.0.0","@babel/core":"^7.25.2","@babel/preset-env":"^7.25.4","babel-loader":"^9.1.3","gulp-webpack":"^1.5.0"}}');
 
 /***/ })
 

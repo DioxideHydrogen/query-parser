@@ -32,6 +32,7 @@ class qsParser {
   _removeInterrogation = function (query_string) {
     if (query_string.charAt(0) === '?') return query_string.slice(1);
     if (query_string.indexOf('?') > 0) return query_string.split('?')[1];
+	return query_string;
   }
 
   /**
@@ -97,7 +98,7 @@ class qsParser {
 
     this._query_params[param] = value;
 
-    return this._query_string + '&' + param + '=' + value;
+    return this.toString();
 
   }
 
@@ -110,6 +111,48 @@ class qsParser {
    */
   all() {
 	return this._query_params;
+  }
+  
+  /**
+   * Retorna a query string em uma string formatada como JSON
+   * 
+   * @returns string
+   * @example
+   * let parser = new qsParser('?param1=valor1&param2=valor2');
+   * console.log(parser.json()); // '{"param1":"valor1","param2":"valor2"}'
+   */
+  json(){
+	return JSON.stringify(this._query_params);
+  }
+
+  applyToLocation() {
+	if (typeof window !== 'undefined') {
+	  window.location.search = this.toString();
+	} else {
+	  throw new QueryParserError('This method only works in browser environment');
+	}
+  }
+
+  /**
+   * Retorna a query string em string
+   * @returns string
+   * @example
+   * let parser = new qsParser('?param1=valor1&param2=valor2');
+   * console.log(parser.toString()); // 'param1=valor1&param2=valor2'
+   */
+  toString() {
+	let query_string = '?';
+	for (let key in this._query_params) {
+	  if(Array.isArray(this._query_params[key])) {
+		this._query_params[key].forEach((value, index) => {
+		  query_string += key + '[' + index + ']=' + value + '&';
+		}
+		);
+		continue;
+	  }
+	  query_string += key + '=' + this._query_params[key] + '&';
+	}
+	return query_string.slice(0, -1);
   }
 
 }
