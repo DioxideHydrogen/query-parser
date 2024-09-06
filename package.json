@@ -11,6 +11,32 @@
     "type": "git",
     "url": "git+https://github.com/DioxideHydrogen/query-parser"
   },
+  "keywords": [
+	"query",
+	"query parser",
+	"query string",
+	"query params",
+	"parser",
+	"params",
+	"query string parser",
+	"query string params",
+	"query string parser",
+	"javascript",
+	"js",
+	"web",
+	"web development",
+	"web app",
+	"web application",
+	"node",
+	"nodejs",
+	"get",
+	"get query",
+	"get query params",
+	"get query string",
+	"get query string params",
+	"get query string parser",
+	"get params"
+  ],
   "license": "ISC",
   "devDependencies": {
     "gulp": "^5.0.0",
@@ -21,5 +47,9 @@
     "@babel/preset-env": "^7.25.4",
     "babel-loader": "^9.1.3",
     "gulp-webpack": "^1.5.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/DioxideHydrogen/query-parser/issues"
+  },
+  "homepage": "https://github.com/DioxideHydrogen/query-parser#readme"
 }
