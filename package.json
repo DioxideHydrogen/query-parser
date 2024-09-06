@@ -1,6 +1,6 @@
 {
   "name": "queryparserjs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A js lib for easy and fast access to query params of your web application",
   "main": "index.js",
   "scripts": {

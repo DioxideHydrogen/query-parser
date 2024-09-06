@@ -150,6 +150,15 @@ class qsParser {
 		);
 		continue;
 	  }
+	  if(typeof this._query_params[key] === 'object') {
+		for (let index in this._query_params[key]) {
+		  this._query_params[key][index].forEach((value, i) => {
+			query_string += key + '[' + index + ']=' + value + '&';
+		  });
+		}
+		continue;
+	}
+
 	  query_string += key + '=' + this._query_params[key] + '&';
 	}
 	return query_string.slice(0, -1);
